@@ -1,0 +1,4 @@
+.vscode
+Calculator.API/bin
+Calculator.API/obj
+Calculator.API/*.db
