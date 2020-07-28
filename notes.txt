@@ -1,0 +1,16 @@
+Client will build request in front-end.
+Request sent to API as string.
+Split string at operators to get operators and operands.
+If using bracket functionality, evaluate calculations inside brackets first.
+
+
+Front end : -
+	Request consists of IP Address, Date & Time of request, and a calculation.
+	A calculation consists of Operand 1, Operand 2, and an Operator.
+	Brackets can be used to make the result of a calculation an Operand.
+
+Disallow dividing by 0.
+
+For division operations, which do not commute, Operand 1 is the numerator, Operand 2 is the denominator; in this case Operand 2 must not be 0.
+
+Binary Tree to break down large operations into component parts, which are then evaluated in order according to order of operations (BODMAS).

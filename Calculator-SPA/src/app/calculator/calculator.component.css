@@ -1,0 +1,41 @@
+.textbox {
+  min-width: 50vw;
+  min-height: 40px;
+  font-size: larger;
+}
+
+.parent {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: grid;
+    grid-template-columns: 25vw 25vw;
+    gap: 30px;
+    place-content: center;
+  }
+
+  .operands {
+    min-width:25vw;
+    min-height: 50vh;
+    grid-area: 1/1/2/2;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 5px;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .operators {
+    min-width:25vw;
+    min-height: 50vh;
+    grid-area: 1/2/2/3;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  button{
+    font-family: 'Roboto', sans-serif;
+    font-size: larger;  
+  }

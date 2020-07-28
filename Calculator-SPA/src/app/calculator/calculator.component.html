@@ -1,3 +1,18 @@
-<p>
-  calculator works!
-</p>
+
+<div class="parent">
+    <div class="textbox">
+        <p id="calculation"></p>
+    </div>
+    
+    <div class="operands">
+        <button *ngFor="let label of buttonLabelsOperands" (click)=btnClick(label) >{{label}}</button>
+    </div>
+
+    <div class="operators">
+        <button (click)=btnDel()>DEL</button>
+        <button (click)=btnAc()>AC</button>
+        <button *ngFor="let label of buttonLabelsOperators" (click)=btnClick(label) [disabled]='this.operatorsDisabled' >{{label}}</button>
+        <button (click)=btnEquals() [disabled]='this.operatorsDisabled'>=</button>
+    </div>
+</div>
+
