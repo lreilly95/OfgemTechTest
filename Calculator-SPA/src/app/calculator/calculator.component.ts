@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-calculator',
@@ -7,11 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalculatorComponent implements OnInit {
   buttonLabelsOperands = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0];
-  buttonLabelsOperators = ['x', '÷', '+', '-', '.'];
+  buttonLabelsOperators = ['*', '÷', '+', '-', '.'];
   operatorsDisabled = true;
   calculation = '';
+  answer: any;
+  baseUrl = environment.apiUrl;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -33,9 +37,17 @@ export class CalculatorComponent implements OnInit {
     }
   }
 
-  // TODO - Query API with calculation and display result
+  // Queries API with calculation, displayes result, and updates calculation
   btnEquals() {
-    throw new Error('Not Implemented');
+
+    this.http.get(this.baseUrl + 'calculate/' + this.calculation).subscribe(response => {
+      this.answer = response;
+      document.getElementById('calculation').innerHTML = this.answer;
+      this.calculation = this.answer.toString();
+    }, error => {
+      console.log(error);
+    });
+
   }
 
   // Remove rightmost character in calculation
