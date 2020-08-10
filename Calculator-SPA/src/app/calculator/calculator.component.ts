@@ -18,7 +18,7 @@ export class CalculatorComponent implements OnInit {
   // Listens for keypresses and triggers relevant button clicks for valid inputs.
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if(this.buttonLabelsOperands.includes(parseInt(event.key, 10))
+    if (this.buttonLabelsOperands.includes(parseInt(event.key, 10))
       || this.buttonLabelsOperators.includes(event.key)
       || this.buttonLabelsParens.includes(event.key)) {
       this.btnClick(event.key);
