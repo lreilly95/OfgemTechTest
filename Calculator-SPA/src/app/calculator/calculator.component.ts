@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.css']
+  styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent implements OnInit {
   buttonLabelsOperands = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0];
@@ -15,7 +16,7 @@ export class CalculatorComponent implements OnInit {
   calculation = '';
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -44,6 +45,7 @@ export class CalculatorComponent implements OnInit {
       document.getElementById('calculation').innerHTML = response.toString();
       this.calculation = response.toString();
     }, error => {
+      this.toastr.error(error.error);
       console.log(error.error);
     });
 

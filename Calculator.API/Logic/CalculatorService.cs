@@ -48,6 +48,8 @@ namespace Calculator.API.Logic
                         break;
 
                         case "÷":
+                        if (a == 0)
+                            throw new Exception("Cannot divide by 0");
                         answerStack.Push(b / a);
                         break;
 
