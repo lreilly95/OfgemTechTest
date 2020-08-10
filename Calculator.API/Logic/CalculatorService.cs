@@ -34,8 +34,15 @@ namespace Calculator.API.Logic
                 if(operators.Contains(token)) // If current token is an operator
                 {
                     // Pop 2 tokens from stack, these are the operands.
-                    float a = answerStack.Pop(); 
-                    float b = answerStack.Pop();
+                    float a;
+                    float b;
+                    try{
+                        a = answerStack.Pop(); 
+                        b = answerStack.Pop();
+                    }
+                    catch {
+                        throw new Exception("Mismatched operators & operands.");
+                    }
                     // Perform pertinent operation, and push answer to stack.
                     switch (token)
                     {
@@ -49,7 +56,7 @@ namespace Calculator.API.Logic
 
                         case "÷":
                         if (a == 0)
-                            throw new Exception("Cannot divide by 0");
+                            throw new Exception("Cannot divide by 0.");
                         answerStack.Push(b / a);
                         break;
 

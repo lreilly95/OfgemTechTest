@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -15,6 +15,23 @@ export class CalculatorComponent implements OnInit {
   operatorsDisabled = true;
   calculation = '';
   baseUrl = environment.apiUrl;
+  // Listens for keypresses and triggers relevant button clicks for valid inputs.
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if(this.buttonLabelsOperands.includes(parseInt(event.key, 10))
+      || this.buttonLabelsOperators.includes(event.key)
+      || this.buttonLabelsParens.includes(event.key)) {
+      this.btnClick(event.key);
+    } else if (event.key === '/') {
+      this.btnClick('÷');
+    } else if (event.key === 'Enter') {
+      this.btnEquals();
+    } else if (event.key === 'Backspace') {
+      this.btnDel();
+    } else if (event.key === 'Delete') {
+      this.btnAc();
+    }
+  }
 
   constructor(private http: HttpClient, private toastr: ToastrService) { }
 

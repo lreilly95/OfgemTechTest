@@ -1,25 +1,27 @@
-
-
-
-<div class="parent">
-    
-    <div class="operands">
-        <button *ngFor="let label of buttonLabelsOperands" (click)=btnClick(label) >{{label}}</button>
+<div class="container">
+    <div class = "heading">
+        <h1>Liam's Calculator</h1>
+        <p>Input your calculations by clicking on the buttons below, or using your keyboard. Press Enter or click the '=' button to get the result.</p>
+        <p>Note that negative numbers are not currently supported, you can get around this by entering (0-n) for -n.</p>
     </div>
 
-    
     <div class="textbox">
         <p id="calculation"></p>
     </div>
 
-    <div class="operators">
-        <button (click)=btnDel()>DEL</button>
-        <button (click)=btnAc()>AC</button>
-        <button *ngFor="let label of buttonLabelsOperators" (click)=btnClick(label) [disabled]='this.operatorsDisabled' >{{label}}</button>
-        <button *ngFor="let label of buttonLabelsParens" (click)=btnClick(label)>{{label}}</button>
-        <button (click)=btnEquals()>=</button>
+    <div class="parent">
+
+        <div class="operands">
+            <button *ngFor="let label of buttonLabelsOperands" (click)=btnClick(label) >{{label}}</button>
+        </div>
+        
+
+        <div class="operators">
+            <button (click)=btnDel()>DEL</button>
+            <button (click)=btnAc()>AC</button>
+            <button *ngFor="let label of buttonLabelsOperators" (click)=btnClick(label) [disabled]='this.operatorsDisabled' >{{label}}</button>
+            <button *ngFor="let label of buttonLabelsParens" (click)=btnClick(label)>{{label}}</button>
+            <button (click)=btnEquals()>=</button>
+        </div>
     </div>
 </div>
-
-
-

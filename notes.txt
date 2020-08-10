@@ -4,20 +4,10 @@ Split string at operators to get operators and operands.
 If using bracket functionality, evaluate calculations inside brackets first.
 
 
-Front end : -
-	Request consists of IP Address, Date & Time of request, and a calculation.
-	A calculation consists of Operand 1, Operand 2, and an Operator.
-	Brackets can be used to make the result of a calculation an Operand.
-
-Disallow dividing by 0.
-
-For division operations, which do not commute, Operand 1 is the numerator, Operand 2 is the denominator; in this case Operand 2 must not be 0.
-
-
 TODO
 
-Fix error when 1st character in calculation is parenthesis.
+Fix error when 1st character in calculation is parenthesis. x
 Create SQLite DB on startup if no DB exists.  x
-Pretty up the front-end.
+Pretty up the front-end. x
 Add operator associativity, and exponentiation.
 Add negative number functionality.

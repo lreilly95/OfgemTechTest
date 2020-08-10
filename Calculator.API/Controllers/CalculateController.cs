@@ -37,9 +37,9 @@ namespace Calculator.API.Controllers
                 var result = await _calc.evaluatePostfix(calculation);
                 return Ok(result);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                throw new Exception("Error with calculation");
+                throw new Exception("Error with calculation: " + ex.Message);
             }           
         }
 
