@@ -32,8 +32,15 @@ namespace Calculator.API.Controllers
             request.RequestDateTime = DateTime.Now;
             _repo.Add(request);
             await _repo.SaveAll();
-            var result = await _calc.evaluatePostfix(calculation);
-            return Ok(result);
+            try
+            {
+                var result = await _calc.evaluatePostfix(calculation);
+                return Ok(result);
+            }
+            catch (System.Exception)
+            {
+                throw new Exception("Error with calculation");
+            }           
         }
 
     }

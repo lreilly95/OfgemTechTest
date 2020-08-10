@@ -8,12 +8,10 @@ namespace Calculator.API.Logic
 {
 
     /*
-        KNOWN ISSUES
-
-        System.FormatException: Input string was not in a correct format: - line 60. Occurs when calculation begins with left parenthesis.
-
-
-
+        NOTE THAT THIS CODE WILL NOT WORK WITH UNARY OPERATORS, RIGHT ASSOCIATIVE OPERATORS, OR NEGATIVE NUMBERS.
+        THE FOLLOWING WORKS BY TOKENIZING THE INPUT - SPLITTING OPERATORS & OPERANDS,
+        CONVERTING TO POSTFIX NOTATION USING THE SHUNTING YARD ALGORITHM,
+        THEN EVALUATING THE POSTFIX EXPRESSION.
     */
     public class CalculatorService : ICalculatorService
     {
@@ -27,6 +25,11 @@ namespace Calculator.API.Logic
             while(postfix.Count != 0)
             {             
                 token = postfix.Pop();
+
+                // This resolves the error when expression starts with a left parenthesis, which causes the top of the postfix stack to be an empty string.
+                // It may be possible to resolve this issue more elegantly in the infixToPostfix converter.
+                if (token == "")
+                    token = postfix.Pop();
 
                 if(operators.Contains(token)) // If current token is an operator
                 {
@@ -65,7 +68,7 @@ namespace Calculator.API.Logic
             return await Task.FromResult(Math.Round(answerStack.Pop(),3).ToString());
         }
 
-        private Stack<string> infixToPostfix(string infix)
+        private Stack<string> infixToPostfix(string infix) //Shunting Yard Algorithm
         {
             string[] tokens = Regex.Split(infix, "(?<=[^\\.a-zA-Z\\d])|(?=[^\\.a-zA-Z\\d])"); //Splits infix when preceded or followed by a non-alphanumeric character.
             Stack<string> output = new Stack<string>();
@@ -84,8 +87,8 @@ namespace Calculator.API.Logic
                 else if (operators.Contains(token)) //Else if token is an operator
                     {
                         if(ops.Count != 0){
-                            //While there is an operator at top of operator stack with greater or equal priority than token, and not left parenthesis.
-                            while ((operators.Contains(ops.Peek()) && priority[ops.Peek()] >= priority[token])) //&& ops.Peek() != "(")  
+                            //While there is an operator at top of operator stack with greater or equal priority than token.
+                            while ((operators.Contains(ops.Peek()) && priority[ops.Peek()] >= priority[token]))
                             {
                                 output.Push(ops.Pop()); //Pop operator stack, and push to output stack.
                                 if (ops.Count == 0) //If operator stack is empty, break from while.

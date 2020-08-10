@@ -13,4 +13,11 @@ Disallow dividing by 0.
 
 For division operations, which do not commute, Operand 1 is the numerator, Operand 2 is the denominator; in this case Operand 2 must not be 0.
 
-Binary Tree to break down large operations into component parts, which are then evaluated in order according to order of operations (BODMAS).
+
+TODO
+
+Fix error when 1st character in calculation is parenthesis.
+Create SQLite DB on startup if no DB exists.  x
+Pretty up the front-end.
+Add operator associativity, and exponentiation.
+Add negative number functionality.

@@ -10,9 +10,9 @@ import { environment } from 'src/environments/environment';
 export class CalculatorComponent implements OnInit {
   buttonLabelsOperands = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0];
   buttonLabelsOperators = ['*', '÷', '+', '-', '.'];
+  buttonLabelsParens = ['(', ')'];
   operatorsDisabled = true;
   calculation = '';
-  answer: any;
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
@@ -26,7 +26,7 @@ export class CalculatorComponent implements OnInit {
     document.getElementById('calculation').innerHTML = this.calculation;
 
     // Disable operator buttons when rightmost character in calculation is not numeric.
-    if (!isNumeric(label)) {
+    if (!isNumeric(label) && label !== ')') {
       this.operatorsDisabled = true;
     } else {
       this.operatorsDisabled = false;
@@ -41,11 +41,10 @@ export class CalculatorComponent implements OnInit {
   btnEquals() {
 
     this.http.get(this.baseUrl + 'calculate/' + this.calculation).subscribe(response => {
-      this.answer = response;
-      document.getElementById('calculation').innerHTML = this.answer;
-      this.calculation = this.answer.toString();
+      document.getElementById('calculation').innerHTML = response.toString();
+      this.calculation = response.toString();
     }, error => {
-      console.log(error);
+      console.log(error.error);
     });
 
   }
