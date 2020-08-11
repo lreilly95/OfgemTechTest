@@ -18,7 +18,7 @@ namespace Calculator.API.Logic
         public async Task<string> evaluatePostfix(string infix)
         {
             Stack<string> postfix = infixToPostfix(infix);
-            Stack<float> answerStack = new Stack<float>();
+            Stack<double> answerStack = new Stack<double>();
             string[] operators = {"+", "-", "*", "÷"};
             string token;
 
@@ -34,8 +34,8 @@ namespace Calculator.API.Logic
                 if(operators.Contains(token)) // If current token is an operator
                 {
                     // Pop 2 tokens from stack, these are the operands.
-                    float a;
-                    float b;
+                    double a;
+                    double b;
                     try{
                         a = answerStack.Pop(); 
                         b = answerStack.Pop();
@@ -70,7 +70,7 @@ namespace Calculator.API.Logic
                 }
                 else // If token is not an operator, push to stack.
                 {
-                    answerStack.Push(float.Parse(token));
+                    answerStack.Push(double.Parse(token));
                 } 
             }
 
@@ -79,15 +79,15 @@ namespace Calculator.API.Logic
 
         private Stack<string> infixToPostfix(string infix) //Shunting Yard Algorithm
         {
-            string[] tokens = Regex.Split(infix, "(?<=[^\\.a-zA-Z\\d])|(?=[^\\.a-zA-Z\\d])"); //Splits infix when preceded or followed by a non-alphanumeric character.
+            string[] tokens = Regex.Split(infix, "(?<=[^\\.\\d])|(?=[^\\.\\d])"); //Splits infix when preceded or followed by a character which is not a digit or decimal.
             Stack<string> output = new Stack<string>();
             Stack<string> ops = new Stack<string>();
             string[] operators = {"+", "-", "*", "÷"};
             Dictionary<string,int> priority = new Dictionary<string, int>(); //Contains operator priorities
-            priority.Add("+", 2);
-            priority.Add("-", 2);
-            priority.Add("*", 3);
-            priority.Add("÷", 3);
+            priority.Add("+", 1);
+            priority.Add("-", 1);
+            priority.Add("*", 2);
+            priority.Add("÷", 2);
 
             foreach (string token in tokens)
             {
